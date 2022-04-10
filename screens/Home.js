@@ -16,22 +16,18 @@ const Home = () => {
     GetLocation.getCurrentPosition({
       enableHighAccuracy: true,
       timeout: 10000,
-    })
-      .then(location => {
-        getForecast(location.latitude, location.longitude)
-          .then(response => {
-            setData(response);
-          })
-          .catch(() => {
-            setError(true);
-          })
-          .finally(() => {
-            setLoaded(true);
-          });
-      })
-      .catch(error => {
-        const {code, message} = error;
-      });
+    }).then(location => {
+      getForecast(location.latitude, location.longitude)
+        .then(response => {
+          setData(response);
+        })
+        .catch(() => {
+          setError(true);
+        })
+        .finally(() => {
+          setLoaded(true);
+        });
+    });
   }, []);
 
   return (
