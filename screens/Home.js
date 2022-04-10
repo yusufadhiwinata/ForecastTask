@@ -16,18 +16,19 @@ const Home = () => {
     GetLocation.getCurrentPosition({
       enableHighAccuracy: true,
       timeout: 10000,
-    }).then(location => {
-      getForecast(location.latitude, location.longitude)
-        .then(response => {
-          setData(response);
-        })
-        .catch(() => {
-          setError(true);
-        })
-        .finally(() => {
-          setLoaded(true);
-        });
-    });
+    })
+      .then(location => {
+        getForecast(location.latitude, location.longitude)
+          .then(response => {
+            setData(response);
+          })
+          .finally(() => {
+            setLoaded(true);
+          });
+      })
+      .catch(() => {
+        setError(true);
+      });
   }, []);
 
   return (
@@ -45,7 +46,7 @@ const Home = () => {
           </View>
         )}
         {!loaded && <ActivityIndicator size={'large'} style={{flex: 1}} />}
-        {error && <Error />}
+        {error && !loaded && <Error />}
       </SafeAreaView>
     </react.Fragment>
   );
